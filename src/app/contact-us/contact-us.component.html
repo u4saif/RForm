@@ -1,0 +1,116 @@
+ <h1 >Contact US</h1>
+ <div style='padding-left:20px; padding-right:20px; width: 80%;'>
+  Select 01
+ </div>
+  <form [formGroup]='form' #f='ngForm' class="my-form">
+    <hr>
+    <table  class="input-full-width"> 
+        <td> 
+              <mat-form-field appearance="fill" class="input-full-width">
+                <mat-label><strong>Name</strong></mat-label>
+                <input matInput  formControlName="nameFormControl">
+                
+                <mat-error *ngIf="form.get('nameFormControl').touched && form.get('nameFormControl').invalid">
+                <mat-error *ngIf="form.get('nameFormControl').errors.required">
+                  Name is <strong>required</strong>
+                </mat-error>
+
+                <mat-error *ngIf="form.get('nameFormControl').errors.minlength">
+                  Name should be minmum <strong>{{form.get('nameFormControl').errors.minlength.requiredLength}} Char</strong>
+                </mat-error>
+              </mat-error>
+
+            </mat-form-field>
+        </td>
+
+        <td>
+            <mat-form-field appearance="fill" class="input-full-width">
+            <mat-label><mat-icon >phone</mat-icon><strong> Phone</strong></mat-label>
+            <input matInput formControlName="phoneFormControl" placeholder="Ex. 111-111-1111">
+            <mat-error *ngIf="form.get('phoneFormControl').touched && form.get('phoneFormControl').invalid">
+              <mat-error *ngIf="form.get('phoneFormControl').errors.required">Phone number is <strong>Required</strong></mat-error>
+              <mat-error *ngIf="form.get('phoneFormControl').hasError('invalidNumber')">Phone number format must be like <strong>111-111-1111 </strong></mat-error>
+            </mat-error>
+            </mat-form-field>
+        </td>
+    </table>
+   
+<table class="input-full-width">
+    <td>  <mat-form-field appearance="fill" class="input-full-width">
+        <mat-label><strong>Email</strong></mat-label>
+        <input matInput formControlName="emailFormControl" placeholder="Ex. saif@example.com">
+        <mat-error *ngIf="form.get('emailFormControl').touched && form.get('emailFormControl').invalid">
+           <mat-error *ngIf="form.get('emailFormControl').errors.required">Email is <strong>Required</strong></mat-error>
+           <mat-error *ngIf="form.get('emailFormControl').errors.email">Not a valid <strong>Email Format</strong></mat-error>
+        </mat-error>
+        </mat-form-field>
+    </td>
+
+    <td>
+        <mat-form-field appearance="fill" class="input-full-width">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-label><strong>Date</strong></mat-label>
+        <input  matInput [matDatepicker]="picker" formControlName="dateFormControl" placeholder="MM/DD/YYYY">
+        <mat-error *ngIf="form.get('dateFormControl').touched && form.get('dateFormControl').invalid">
+           <mat-error *ngIf="form.get('dateFormControl').errors.required">Not a valid <strong>Date</strong> </mat-error>  
+        </mat-error>   
+        <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+    </td>
+</table>
+
+<!---Section 2 start here-->>
+<div style='padding-left:20px; padding-right:20px; width: 80%;'>
+  Select 02
+ </div>
+ <hr>
+<table class="input-full-width">
+  <td>
+    <p> <strong> Minimal</strong></p>
+    <mat-form-field appearance="fill" class="input-full-width">
+      <mat-label>Select City</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let city of citys2" [value]="city.value">
+          {{city.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </td>
+  
+  <chips-autocomplete-example ></chips-autocomplete-example>
+   
+</table>
+<table class="input-full-width">
+<td>
+  <p> <strong> Disabled </strong></p>
+  <mat-form-field  appearance="fill" class="input-full-width" >
+    <mat-label>Alabama</mat-label>
+    <mat-select [disabled]='true'>
+      <mat-option *ngFor="let city of citys2" [value]="city.value">
+        {{city.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  </td>
+ 
+  <td>
+    <p> <strong> Disabled Result </strong></p>
+    <mat-form-field  appearance="fill" class="input-full-width">
+      <mat-label>Choose an option</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let city of citys2" [value]="city.value">
+          <option *ngIf='city.viewValue=="California";else showRest' disabled>
+            {{city.viewValue}} (disabled)
+          </option>
+          <ng-template #showRest>
+            {{city.viewValue}}
+          </ng-template>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </td>
+</table>
+
+ 
+</form>
+ 

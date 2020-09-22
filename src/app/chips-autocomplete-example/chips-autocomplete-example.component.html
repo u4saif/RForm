@@ -1,0 +1,27 @@
+
+    <p><strong>Multiple</strong></p>
+    <mat-form-field appearance="fill" class="input-full-width">
+      <mat-chip-list #chipList aria-label="city selection">
+        <mat-chip
+          *ngFor="let city of citys"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(city)">
+          {{city}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="New city..."
+          #cityInput
+          [formControl]="cityCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let city of filteredcitys | async" [value]="city">
+          {{city}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
